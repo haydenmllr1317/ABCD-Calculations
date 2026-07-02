@@ -2,16 +2,19 @@
 ============================================================
 1112 nm - BEST SOLUTION
 ============================================================
-d1          = 3.986 mm
-d12         = 196.014 mm
-d2          = 339.815 mm
+f1          = 6.240 mm
+f2          = 850.000 mm
+d1          = 6.276 mm
+d12         = 193.724 mm
+d2          = 373.538 mm
+Ideal d2     = 376.000 mm
 
 Input waist  = 3.300 μm
 Cavity waist = 266.068 μm
-Output waist = 266.034 μm
+Output waist = 266.242 μm
 
-Waist error = 0.033404 μm
-Fractional error = 1.255487e-04
+Waist error = 0.174349 μm
+Fractional error = 6.552811e-04
 
 Output ROC = inf
 ============================================================
@@ -20,16 +23,19 @@ Output ROC = inf
 ============================================================
 556 nm - BEST SOLUTION
 ============================================================
-d1          = 3.997 mm
-d12         = 196.003 mm
-d2          = 435.147 mm
+f1          = 5.500 mm
+f2          = 1003.500 mm
+d1          = 5.520 mm
+d12         = 194.480 mm
+d2          = 512.494 mm
+Ideal d2     = 515.000 mm
 
 Input waist  = 1.650 μm
 Cavity waist = 188.138 μm
-Output waist = 188.157 μm
+Output waist = 187.873 μm
 
-Waist error = 0.018546 μm
-Fractional error = 9.857417e-05
+Waist error = 0.265163 μm
+Fractional error = 1.409403e-03
 
 Output ROC = inf
 ============================================================
@@ -38,16 +44,19 @@ Output ROC = inf
 ============================================================
 604 nm - BEST SOLUTION
 ============================================================
-d1          = 3.995 mm
-d12         = 196.005 mm
-d2          = 469.230 mm
+f1          = 3.000 mm
+f2          = 100.300 mm
+d1          = 3.119 mm
+d12         = 196.881 mm
+d2          = 534.227 mm
+Ideal d2     = 535.000 mm
 
 Input waist  = 1.650 μm
 Cavity waist = 196.091 μm
-Output waist = 195.950 μm
+Output waist = 196.882 μm
 
-Waist error = 0.141134 μm
-Fractional error = 7.197341e-04
+Waist error = 0.790819 μm
+Fractional error = 4.032909e-03
 
 Output ROC = inf
 ============================================================
@@ -56,16 +65,19 @@ Output ROC = inf
 ============================================================
 978 nm - BEST SOLUTION
 ============================================================
-d1          = 3.995 mm
-d12         = 196.005 mm
-d2          = 282.531 mm
+f1          = 11.000 mm
+f2          = 2500.000 mm
+d1          = 11.100 mm
+d12         = 188.900 mm
+d2          = 683.680 mm
+Ideal d2     = 685.500 mm
 
 Input waist  = 3.300 μm
 Cavity waist = 249.522 μm
-Output waist = 249.481 μm
+Output waist = 250.237 μm
 
-Waist error = 0.041327 μm
-Fractional error = 1.656249e-04
+Waist error = 0.714346 μm
+Fractional error = 2.862852e-03
 
 Output ROC = inf
 ============================================================
@@ -74,16 +86,19 @@ Output ROC = inf
 ============================================================
 1034 nm - BEST SOLUTION
 ============================================================
-d1          = 4.021 mm
-d12         = 195.979 mm
-d2          = 169.317 mm
+f1          = 8.000 mm
+f2          = 850.000 mm
+d1          = 8.031 mm
+d12         = 191.969 mm
+d2          = 532.286 mm
+Ideal d2     = 531.500 mm
 
 Input waist  = 3.300 μm
 Cavity waist = 256.567 μm
-Output waist = 256.553 μm
+Output waist = 256.172 μm
 
-Waist error = 0.013287 μm
-Fractional error = 5.178664e-05
+Waist error = 0.394758 μm
+Fractional error = 1.538616e-03
 
 Output ROC = inf
 ============================================================
@@ -92,16 +107,19 @@ Output ROC = inf
 ============================================================
 1389 nm - BEST SOLUTION
 ============================================================
-d1          = 4.037 mm
-d12         = 195.963 mm
-d2          = 52.344 mm
+f1          = 9.600 mm
+f2          = 1003.500 mm
+d1          = 9.664 mm
+d12         = 190.336 mm
+d2          = 501.517 mm
+Ideal d2     = 511.500 mm
 
 Input waist  = 4.650 μm
 Cavity waist = 297.366 μm
-Output waist = 297.449 μm
+Output waist = 297.537 μm
 
-Waist error = 0.082706 μm
-Fractional error = 2.781273e-04
+Waist error = 0.171517 μm
+Fractional error = 5.767864e-04
 
 Output ROC = inf
 ============================================================
@@ -110,16 +128,19 @@ Output ROC = inf
 ============================================================
 1580 nm - BEST SOLUTION
 ============================================================
-d1          = 3.994 mm
-d12         = 196.006 mm
-d2          = 236.396 mm
+f1          = 8.000 mm
+f2          = 850.000 mm
+d1          = 8.058 mm
+d12         = 191.942 mm
+d2          = 374.324 mm
+Ideal d2     = 372.500 mm
 
 Input waist  = 5.050 μm
 Cavity waist = 317.153 μm
-Output waist = 317.094 μm
+Output waist = 317.085 μm
 
-Waist error = 0.059282 μm
-Fractional error = 1.869205e-04
+Waist error = 0.067696 μm
+Fractional error = 2.134476e-04
 
 Output ROC = inf
 ============================================================

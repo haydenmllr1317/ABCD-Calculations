@@ -1,79 +1,103 @@
 from ABCD import runner
 import numpy as np
 import matplotlib.pyplot as plt
-from constants import map_to_f2
+# from constants import wvln_to_f2, wvln_to_ideal_d2
+from constants import wvln_to_ideal_d2
+from itertools import product
+
+
+f1_options = [0.0015, 0.002, 0.0028, 0.003, 0.0031, 0.0033, 0.004, 0.0045,
+              0.00451, 0.0046, 0.0055, 0.0062, 0.00624, 0.0075, 0.008, 0.0096,
+              0.011, 0.0139, 0.0153, 0.0184]  # in meters
+
+f2_options = [0.03, 0.0351, 0.0401, 0.0502, 0.06, 0.0753, 0.1003, 0.1254,
+              0.1505, 0.1756, 0.2007, 0.2509, 0.3011, 0.350, 0.4, 0.45, 0.5018,
+              0.6, 0.7527, 0.85, 1.0035, 2.0, 2.5] # in meters
 
 ################################ USER INPUTS ###################################
-f1 = 0.004           # 4 mm
+# f1 = 0.004           # 4 mm
 total_distance = 0.2  # 200 mm
 
-d1_min = 0.00395      # 3 mm
-d1_max = 0.00415      # 5 mm
+d1_neg_delta = 0.05      # 5% under f1
+d1_pos_delta = 0.05      # 5% over f1
 num_points = 1001
-
 ###############################################################################
 
 summary = []
 
-for wavelen in map_to_f2.keys():
-    f2 = map_to_f2[wavelen]
-    print(f"Wavelength: {wavelen} nm, f2: {f2:.3f} m")
+for wavelen in wvln_to_ideal_d2.keys():
+    # f2 = wvln_to_f2[wavelen]
+    bests = []
+    for f1,f2 in product(f1_options, f2_options):
+        # print(f"Wavelength: {wavelen} nm, f2: {f2:.3f} m")
 
-    best = None
+        best = None
 
-    d1_vals = []
-    waist_error_vals = []
-    output_waist_vals = []
-    cavity_waist_vals = []
-    d2_vals = []
-    roc_vals = []
+        # d1_vals = []
+        # waist_error_vals = []
+        # output_waist_vals = []
+        # cavity_waist_vals = []
+        # d2_vals = []
+        # roc_vals = []
 
-    print("Sweeping...")
+        # print("Sweeping...")
 
-    for d1 in np.linspace(d1_min, d1_max, num_points):
+        d1_min = f1 * (1 - d1_neg_delta)
+        d1_max = f1 * (1 + d1_pos_delta)
 
-        w_i, w_c, w_o, R_o, d2 = runner(
-            wavelen,
-            d1,
-            f1,
-            total_distance - d1
-        )
+        for d1 in np.linspace(d1_min, d1_max, num_points):
 
-        waist_error = abs(w_o - w_c)
+            w_i, w_c, w_o, R_o, d2 = runner(
+                wavelen,
+                d1,
+                f1,
+                total_distance - d1,
+                f2
+            )
 
-        d1_vals.append(d1 * 1e3)            # mm
-        waist_error_vals.append(waist_error * 1e6)  # μm
-        output_waist_vals.append(w_o * 1e6)         # μm
-        cavity_waist_vals.append(w_c * 1e6)         # μm
-        d2_vals.append(d2 * 1e3)                    # mm
-        roc_vals.append(R_o)
+            waist_error = abs(w_o - w_c)
 
-        if best is None or waist_error < best["error"]:
-            best = {
-                "d1": d1,
-                "f1": f1,
-                "d12": total_distance - d1,
-                "f2": map_to_f2[wavelen],
-                "d2": d2,
-                "w_i": w_i,
-                "w_c": w_c,
-                "w_o": w_o,
-                "R_o": R_o,
-                "error": waist_error,
-            }
+            # d1_vals.append(d1 * 1e3)            # mm
+            # waist_error_vals.append(waist_error * 1e6)  # μm
+            # output_waist_vals.append(w_o * 1e6)         # μm
+            # cavity_waist_vals.append(w_c * 1e6)         # μm
+            # d2_vals.append(d2 * 1e3)                    # mm
+            # roc_vals.append(R_o)
+
+            if best is None or waist_error < best["error"]:
+                best = {
+                    "d1": d1,
+                    "f1": f1,
+                    "d12": total_distance - d1,
+                    "f2": f2,
+                    "d2": d2,
+                    "w_i": w_i,
+                    "w_c": w_c,
+                    "w_o": w_o,
+                    "R_o": R_o,
+                    "error": waist_error,
+                }
+
+        bests.append(best)
 
     ###############################################################################
     # Save best solution
     ###############################################################################
 
+    ideal_d2 = wvln_to_ideal_d2[wavelen]
+    best = min(bests, key=lambda x: (x["d2"]-ideal_d2)**2)  # Choose the solution with the closest d2 to the ideal
 
     summary.append("\n" + "="*60)
     summary.append(f"{wavelen} nm - BEST SOLUTION")
     summary.append("="*60)
 
+    summary.append(f"f1          = {best['f1']*1e3:.3f} mm")
+    summary.append(f"f2          = {best['f2']*1e3:.3f} mm")
+
     summary.append(f"d1          = {best['d1']*1e3:.3f} mm")
     summary.append(f"d12         = {best['d12']*1e3:.3f} mm")
     summary.append(f"d2          = {best['d2']*1e3:.3f} mm")
+    summary.append(f"Ideal d2     = {ideal_d2*1e3:.3f} mm")
 
     summary.append(f"\nInput waist  = {best['w_i']*1e6:.3f} μm")
     summary.append(f"Cavity waist = {best['w_c']*1e6:.3f} μm")
@@ -89,14 +113,14 @@ for wavelen in map_to_f2.keys():
     # Plot results
     ###############################################################################
 
-    plt.figure(figsize=(8,5))
-    plt.plot(d1_vals, waist_error_vals)
-    plt.xlabel("d1 (mm)")
-    plt.ylabel("Waist error (μm)")
-    plt.title(f"{wavelen} nm Mode Matching Error vs d1")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig(f"plots/{wavelen}_nm_mode_matching_error_vs_d1.png")
+    # plt.figure(figsize=(8,5))
+    # plt.plot(d1_vals, waist_error_vals)
+    # plt.xlabel("d1 (mm)")
+    # plt.ylabel("Waist error (μm)")
+    # plt.title(f"{wavelen} nm Mode Matching Error vs d1")
+    # plt.grid(True)
+    # plt.tight_layout()
+    # plt.savefig(f"plots/{wavelen}_nm_mode_matching_error_vs_d1.png")
 
 
 with open("mode_match_results.txt", "w") as f:
