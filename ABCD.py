@@ -112,8 +112,9 @@ def my_prop(q,d1,f1,d12,f2):
     q2 = prop_lens(q1,f1)
     q3 = prop_free(q2,d12)
     q4 = prop_lens(q3,f2)
+    print(1/((1/q4).real))
     d2 = abs(q4.real) 
-    q5 = prop_free(q4,abs(q4.real)) # this ensure we go directly to the waist. 
+    q5 = prop_free(q4,d2) # this ensures we go directly to the waist. 
     # print(f"q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}, q5: {q5}")
     return q5, d2
 
@@ -132,12 +133,13 @@ def runner(wvlen, d1, f1, d12):
 
 def main():
     wvlen = 556
-    ideal_waist = 0.00052 # 0.52 m
+    # ideal_waist = 0.00052 # 0.52 m
     # d1 = 0.0047235
     # f1 = 0.0047235
-    d1 = perfect_distance(wvlen, map_to_MFR[wvlen]*1e-6, ideal_waist)
-    f1 = d1
-    d12 = 0
+    # d1 = perfect_distance(wvlen, map_to_MFR[wvlen]*1e-6, ideal_waist)
+    d1 = 0.003997
+    f1 = 0.004
+    d12 = 0.196003
     # d12 = 0.195
     # f2 = 0.5
     w_i, w_c, w_o, R_o, d2 = runner(wvlen, d1, f1, d12)

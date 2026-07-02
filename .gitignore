@@ -1,3 +1,5 @@
 .abcd_venv/
 
-plots/*
+plots/
+
+__pycache__/
