@@ -84,7 +84,7 @@ def prop_lens(q,f):
     """
     return 1/(1/q - 1/f)
 
-def my_prop(q,d1,f1,d12,f2):
+def my_prop(wvlen, q, d1, f1, d12, f2, d2):
     """
     Propagate a Gaussian beam through a system of two lenses separated by free space.
 
@@ -113,23 +113,26 @@ def my_prop(q,d1,f1,d12,f2):
     q3 = prop_free(q2,d12)
     q4 = prop_lens(q3,f2)
     # print(1/((1/q4).real))
-    d2 = abs(q4.real) 
+    # OLD CODE: d2 = -q4.real 
+    d2_ideal = -q4.real  # This is the ideal distance to the output waist
+    max_waist = math.sqrt(-wvlen*1e-9/(((1/q4).imag)*math.pi))  # Calculate output waist (m)
     q5 = prop_free(q4,d2) # this ensures we go directly to the waist. 
     # print(f"q1: {q1}, q2: {q2}, q3: {q3}, q4: {q4}, q5: {q5}")
-    return q5, d2
+    # OLD CODE: return q5, d2
+    return q5, d2_ideal, max_waist
 
-def runner(wvlen, d1, f1, d12, f2):
+def runner(wvlen, d1, f1, d12, f2, d2):
     # f2 = wvln_to_f2[wvlen] # in m
     w_i = wvln_to_MFR[wvlen]*1e-6 # waist of the input fiber mode (m)
     w_c = cavity_waist(wvlen)  # Cavity mode waist (m)
     q = flat_q(wvlen, w_i)  # Calculate complex beam parameter (m)
-    q_out, d2 = my_prop(q, d1, f1, d12, f2)  # Propagate through the system
+    q_out, d2_ideal, max_waist = my_prop(wvlen, q, d1, f1, d12, f2, d2)  # Propagate through the system
     try:
         R_o = 1/((1/q_out).real) # ROC of output beam (m).q
     except ZeroDivisionError:
         R_o = float('inf')  # Handle the case where the real part is zero (flat wavefront)
     w_o = math.sqrt(-wvlen*1e-9/(((1/q_out).imag)*math.pi))  # Calculate output waist (m)
-    return w_i, w_c, w_o, R_o, d2
+    return w_i, w_c, w_o, R_o, d2_ideal, max_waist
 
 def main():
     wvlen = 556
