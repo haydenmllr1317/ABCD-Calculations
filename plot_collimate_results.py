@@ -8,9 +8,9 @@ from ABCD import flat_q, prop_free, prop_lens
 
 
 # RESULTS_FILE = Path(__file__).with_name("collimate_results.txt")
-RESULTS_FILE = Path(__file__).with_name("final_results_250.txt")
+RESULTS_FILE = Path(__file__).with_name("new_mfd_final_results_250.txt")
 BASE_PLOTS_DIR = Path(__file__).with_name("plots")
-PLOTS_DIR = BASE_PLOTS_DIR / "final_collimated_beam_profiles_250"
+PLOTS_DIR = BASE_PLOTS_DIR / "new_mfd_final_collimated_beam_profiles_250"
 PLOTS_DIR.mkdir(parents=True, exist_ok=True)
 
 

@@ -38,7 +38,7 @@ for wavelen in wvln_to_f2.keys():
         # total_error = np.sqrt(waist_error**2 + d2_error**2)
         total_error = d2_error
 
-        if best is None or total_error < best["total_error"]:
+        if best is None or total_error < best["d2_error"]:
             best = {
                 "d1": d1,
                 "f1": f1,
@@ -81,5 +81,5 @@ for wavelen in wvln_to_f2.keys():
     summary.append("="*60 + "\n")
 
 
-with open("final_results_250.txt", "w") as f:
+with open("new_mfd_final_results_250.txt", "w") as f:
     f.write("\n".join(summary))

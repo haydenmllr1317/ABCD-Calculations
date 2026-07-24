@@ -21,7 +21,7 @@ f1_options = [0.0015, 0.002, 0.0028, 0.003, 0.0031, 0.0033, 0.004, 0.0045,
 
 ################################ USER INPUTS ###################################
 # f1 = 0.004           # 4 mm
-total_distance = 0.250  # 250 mm
+total_distance = 0.25  # 250 mm
 
 # d1_neg_delta = 0.05      # 5% under f1
 # d1_pos_delta = 0.05      # 5% over f1
@@ -57,7 +57,7 @@ for wavelen in wvln_to_ideal_d2.keys():
 
         d1 = f1; d2 = f2
 
-        w_i, w_c, w_o, R_o, d2_ideal = runner(
+        w_i, w_c, w_o, R_o, d2_ideal, max_waist = runner(
             wavelen,
             d1,
             f1,
@@ -141,5 +141,5 @@ for wavelen in wvln_to_ideal_d2.keys():
     # plt.savefig(f"plots/{wavelen}_nm_mode_matching_error_vs_d1.png")
 
 
-with open("optimal_waist_250.txt", "w") as f:
+with open("new_mfd_optimal_waist_250.txt", "w") as f:
     f.write("\n".join(summary))
